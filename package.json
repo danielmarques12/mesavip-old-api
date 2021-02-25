@@ -1,0 +1,38 @@
+{
+  "name": "mesavip",
+  "version": "1.0.0",
+  "description": "Table Scheduling App",
+  "main": "index.js",
+  "repository": "https://github.com/danielmarques12/mesavip",
+  "author": "Daniel Marques",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "dev": "clear && nodemon src/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "date-fns": "^2.16.1",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5",
+    "youch": "^2.1.1",
+    "yup": "^0.32.8"
+  },
+  "devDependencies": {
+    "eslint": "^7.17.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
+    "sequelize-cli": "^6.2.0",
+    "sucrase": "^3.17.0"
+  }
+}
