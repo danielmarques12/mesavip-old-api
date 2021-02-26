@@ -1,6 +1,9 @@
 {
   "name": "mesavip",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.19"
+  },
   "description": "Table Scheduling App",
   "main": "index.js",
   "type": "module",
