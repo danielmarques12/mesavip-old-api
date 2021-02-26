@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Table Scheduling App",
   "main": "index.js",
+  "type": "module",
   "repository": "https://github.com/danielmarques12/mesavip",
   "author": "Daniel Marques",
   "private": false,
