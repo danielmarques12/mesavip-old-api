@@ -1,4 +1,4 @@
 export default {
-  secret: 'mesavip',
-  expiresIn: '30d',
+  secret: process.env.JWT_SECRET,
+  expiresIn: process.env.JWT_EXPIREN_IN,
 };

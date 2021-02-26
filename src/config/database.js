@@ -1,16 +1,3 @@
-// module.exports = {
-//   dialect: 'postgres',
-//   host: 'localhost',
-//   username: 'postgres',
-//   password: 'mesavip',
-//   database: 'mesavip',
-//   define: {
-//     timestamps: true,
-//     undescored: true,
-//     underscoredAll: true,
-//   },
-// };
-
 module.exports = {
   dialect: 'postgres',
   dialectOptions: {
@@ -19,11 +6,11 @@ module.exports = {
       rejectUnauthorized: false,
     },
   },
-  host: 'ec2-54-87-34-201.compute-1.amazonaws.com',
-  port: 5432,
-  username: 'iymdszhwzlyzgn',
-  password: '64b1217aa195e15521db5a62e156270a8fbf1f772c7c47ef230304944a8fec7b',
-  database: 'dds5891q79rad0',
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
   define: {
     timestamps: true,
     undescored: true,
