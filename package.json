@@ -9,10 +9,12 @@
   "license": "MIT",
   "scripts": {
     "dev": "clear && nodemon src/server.js",
-    "start": "node src/server.js",
-    "build": "webpack"
+    "build": "babel src/server.js -d lib"
   },
   "dependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.1",
+    "@babel/preset-env": "^7.13.5",
     "@sentry/node": "^6.2.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
