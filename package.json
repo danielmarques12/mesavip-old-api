@@ -9,7 +9,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "clear && nodemon src/server.js",
-    "build": "babel src/server.js -d lib"
+    "start": "node src/server.js",
+    "build": "babel src -d lib"
   },
   "dependencies": {
     "@babel/cli": "^7.13.0",
