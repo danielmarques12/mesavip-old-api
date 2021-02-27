@@ -31,7 +31,6 @@
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5",
-    "util": "^0.12.3",
     "webpack-dev-server": "^3.11.2",
     "youch": "^2.1.1",
     "yup": "^0.32.8"
