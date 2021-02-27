@@ -1,4 +1,6 @@
 module.exports = {
+  target: 'node',
+  mode: 'production',
   entry: './src/server.js',
   output: {
     path: `${__dirname}/dist`,
