@@ -5,7 +5,7 @@
     "node": "10.19"
   },
   "description": "Table Scheduling App",
-  "main": "index.js",
+  "main": "src/server.js",
   "type": "module",
   "repository": "https://github.com/danielmarques12/mesavip",
   "author": "Daniel Marques",
@@ -14,7 +14,7 @@
   "scripts": {
     "build": "babel src -d lib",
     "dev": "clear && nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "node src"
   },
   "dependencies": {
     "@babel/cli": "^7.13.0",
