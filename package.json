@@ -12,7 +12,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "clear && nodemon src/server.js",
-    "start": "npm run build && node .",
+    "postinstall": "yarn build && node ./dist/server.js",
     "build": "webpack --mode production"
   },
   "dependencies": {
