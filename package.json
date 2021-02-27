@@ -5,19 +5,17 @@
     "node": "14.16"
   },
   "description": "Table Scheduling App",
-  "main": "src/server.js",
+  "main": "server.js",
   "repository": "https://github.com/danielmarques12/mesavip",
   "author": "Daniel Marques",
   "private": false,
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode production",
+    "start": "webpack serve --hot --mode development",
     "dev": "clear && nodemon src/server.js"
   },
   "dependencies": {
-    "@babel/cli": "^7.13.0",
-    "@babel/core": "^7.13.1",
-    "@babel/preset-env": "^7.13.5",
     "@sentry/node": "^6.2.0",
     "babel-loader": "^8.2.2",
     "bcryptjs": "^2.4.3",
@@ -33,12 +31,14 @@
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5",
-    "webpack": "^5.24.2",
-    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2",
     "youch": "^2.1.1",
     "yup": "^0.32.8"
   },
   "devDependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.1",
+    "@babel/preset-env": "^7.13.5",
     "eslint": "^7.17.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.1.0",
@@ -47,6 +47,8 @@
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
     "sequelize-cli": "^6.2.0",
-    "sucrase": "^3.17.0"
+    "sucrase": "^3.17.0",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0"
   }
 }
