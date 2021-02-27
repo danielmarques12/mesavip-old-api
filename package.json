@@ -1,7 +1,6 @@
 {
   "name": "mesavip",
   "version": "1.0.0",
-  "type": "module",
   "engines": {
     "node": "14.16"
   },
@@ -13,7 +12,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack serve --hot --mode development",
+    "start": "node dist/bundle.js",
     "dev": "clear && nodemon src/server.js"
   },
   "dependencies": {
