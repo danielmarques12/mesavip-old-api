@@ -5,14 +5,14 @@
     "node": "14.16"
   },
   "description": "Table Scheduling App",
-  "main": "webpack.config.js",
+  "main": "dist/bundle.js ",
   "repository": "https://github.com/danielmarques12/mesavip",
   "author": "Daniel Marques",
   "private": false,
   "license": "MIT",
   "scripts": {
     "dev": "clear && nodemon src/server.js",
-    "start": "npm run build && node ./dist/bundle.js",
+    "start": "npm run build && node .",
     "build": "webpack --mode production"
   },
   "dependencies": {
