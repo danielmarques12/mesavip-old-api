@@ -5,7 +5,7 @@
     "node": "14.16"
   },
   "description": "Table Scheduling App",
-  "main": "server.js",
+  "main": "webpack.config.js",
   "repository": "https://github.com/danielmarques12/mesavip",
   "author": "Daniel Marques",
   "private": false,
