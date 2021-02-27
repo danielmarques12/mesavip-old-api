@@ -1,9 +1,6 @@
 {
   "name": "mesavip",
   "version": "1.0.0",
-  "engines": {
-    "node": "14.16"
-  },
   "description": "Table Scheduling App",
   "main": "server.js",
   "repository": "https://github.com/danielmarques12/mesavip",
