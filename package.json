@@ -11,7 +11,7 @@
   "private": false,
   "license": "MIT",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack --config webpack.prod.js",
     "start": "node dist/bundle.js",
     "dev": "clear && nodemon src/server.js"
   },
@@ -32,6 +32,7 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5",
     "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3",
     "youch": "^2.1.1",
     "yup": "^0.32.8"
   },

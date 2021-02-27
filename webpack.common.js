@@ -1,10 +1,12 @@
+const path = require('path');
+
 module.exports = {
   target: 'node',
   mode: 'production',
   entry: './src/server.js',
   output: {
-    path: `${__dirname}/dist`,
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: ' bundle.js',
   },
   module: {
     rules: [
