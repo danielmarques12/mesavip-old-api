@@ -1,9 +1,7 @@
-/* eslint-disable */
 import Sequelize from 'sequelize';
 import bcrypt from 'bcryptjs';
-import { Model } from 'sequelize';
 
-class Usuario extends Model {
+class Usuario extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
