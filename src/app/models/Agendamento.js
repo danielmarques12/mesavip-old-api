@@ -1,6 +1,6 @@
-import Sequelize, { Model } from 'sequelize';
+import Sequelize from 'sequelize';
 
-class Agendamento extends Model {
+class Agendamento extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {

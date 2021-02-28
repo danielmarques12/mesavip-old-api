@@ -1,6 +1,6 @@
-import Sequelize, { Model } from 'sequelize';
+import Sequelize from 'sequelize';
 
-class Mesa extends Model {
+class Mesa extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
