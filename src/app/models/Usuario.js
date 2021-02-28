@@ -1,5 +1,7 @@
-import Sequelize, { Model } from 'sequelize';
+/* eslint-disable */
+import Sequelize from 'sequelize';
 import bcrypt from 'bcryptjs';
+import { Model } from 'sequelize';
 
 class Usuario extends Model {
   static init(sequelize) {
