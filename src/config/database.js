@@ -1,11 +1,14 @@
 module.exports = {
   dialect: 'postgres',
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
+  dialectOptions:
+    process.env.NODE_ENV === 'development'
+      ? undefined
+      : {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false,
+          },
+        },
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   username: process.env.DB_USER,

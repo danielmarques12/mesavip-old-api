@@ -24,7 +24,8 @@ class App {
 
   routes() {
     this.server.use('/', routes);
-    this.server.use(sentry.Handlers.errorHandler());
+    if (process.env.NODE_ENV === 'production')
+      this.server.use(sentry.Handlers.errorHandler());
   }
 
   middlewares() {

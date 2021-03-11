@@ -43,7 +43,12 @@ class HorarioController {
       attributes: ['id', 'horario'],
     });
 
-    return response.json(horarios);
+    const restaurante = await Usuario.findOne({
+      attributes: ['nome'],
+      where: { id: request.params.id },
+    });
+
+    return response.json({ horarios, restaurante });
   }
 }
 
