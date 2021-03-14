@@ -7,10 +7,6 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      quantidade_pessoas: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
       cancelamento: {
         type: Sequelize.BOOLEAN,
         allowNull: true,

@@ -3,6 +3,7 @@ import express from 'express';
 import Youch from 'youch';
 import cors from 'cors';
 import helmet from 'helmet';
+import path from 'path';
 import compression from 'compression';
 import 'express-async-errors';
 import * as sentry from '@sentry/node';
@@ -30,6 +31,10 @@ class App {
 
   middlewares() {
     this.server.use(express.json());
+    this.server.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+    );
     this.server.use(cors());
     this.server.use(compression());
     this.server.use(helmet());
