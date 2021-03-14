@@ -7,6 +7,18 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
+      bairro: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      cidade: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      estado: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       cep: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -22,13 +34,6 @@ module.exports = {
       complemento: {
         type: Sequelize.STRING,
         allowNull: false,
-      },
-      bairro_id: {
-        references: { model: 'bairros', key: 'id' },
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
       },
       usuario_id: {
         references: { model: 'usuarios', key: 'id' },

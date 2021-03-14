@@ -5,10 +5,11 @@ import Agendamento from '../app/models/Agendamento';
 import Horario from '../app/models/Horario';
 import Mesa from '../app/models/Mesa';
 import File from '../app/models/File';
+import Endereco from '../app/models/Endereco';
 
 import databaseConfig from '../config/database';
 
-const models = [Usuario, Agendamento, Horario, Mesa, File];
+const models = [Usuario, Agendamento, Horario, Mesa, File, Endereco];
 
 class Database {
   constructor() {
