@@ -9,7 +9,13 @@ class RestauranteRouter {
   }
 
   setRoutes() {
-    this.router.route('/restaurantes').get(RestauranteController.index);
+    this.router
+      .route('/restaurantes')
+      .get(RestauranteController.listarRestaurantes);
+
+    this.router
+      .route('/restaurantes/adicionar/culinaria/:id')
+      .get(RestauranteController.adicionarCulinaria);
   }
 }
 
