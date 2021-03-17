@@ -1,8 +1,8 @@
 import * as yup from 'yup';
-import Mesa from '../models/Mesa';
-import Usuario from '../models/Usuario';
+import Mesa from '../../models/Restaurante/Mesa';
+import Usuario from '../../models/Usuario';
 
-import db from '../../database';
+import db from '../../../database';
 
 class MesaController {
   async store(request, response) {

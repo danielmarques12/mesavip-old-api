@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import authMiddleware from '../app/middlewares/auth';
 
-import HorarioController from '../app/controllers/HorarioController';
+import HorarioController from '../app/controllers/Restaurante/HorarioController';
 
 class HorarioRouter {
   constructor() {
@@ -11,10 +11,6 @@ class HorarioRouter {
   }
 
   setRoutes() {
-    this.router
-      .route('/restaurantes/:id/horarios/')
-      .get(HorarioController.index);
-
     this.router
       .route('/horarios')
       .post(authMiddleware, HorarioController.store);

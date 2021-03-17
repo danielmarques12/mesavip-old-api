@@ -1,6 +1,8 @@
 import { Router } from 'express';
 
-import RestauranteController from '../app/controllers/RestauranteController';
+import RestauranteController from '../app/controllers/Restaurante/RestauranteController';
+import AvaliacaoController from '../app/controllers/Restaurante/AvaliacaoController';
+import HorarioController from '../app/controllers/Restaurante/HorarioController';
 
 class RestauranteRouter {
   constructor() {
@@ -14,8 +16,16 @@ class RestauranteRouter {
       .get(RestauranteController.listarRestaurantes);
 
     this.router
-      .route('/restaurantes/adicionar/culinaria/:id')
-      .get(RestauranteController.adicionarCulinaria);
+      .route('/restaurantes/:id')
+      .get(RestauranteController.restauranteInfo);
+
+    this.router
+      .route('/restaurantes/horarios/:id')
+      .get(HorarioController.index);
+
+    this.router
+      .route('/restaurantes/avaliacoes/:id')
+      .get(AvaliacaoController.index);
   }
 }
 

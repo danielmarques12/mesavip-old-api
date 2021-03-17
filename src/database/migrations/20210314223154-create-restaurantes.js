@@ -8,7 +8,7 @@ module.exports = {
         allowNull: false,
       },
       sobre: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(1000),
         allowNull: false,
       },
       telefone: {

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import authMiddleware from '../app/middlewares/auth';
+// import authMiddleware from '../app/middlewares/auth';
 
 import UsuarioController from '../app/controllers/UsuarioController';
 
@@ -11,10 +11,7 @@ class UsuarioRouter {
   }
 
   setRoutes() {
-    this.router.route('/usuarios').post(UsuarioController.storeUser);
-    this.router
-      .route('/usuarios/endereco')
-      .post(authMiddleware, UsuarioController.storeEndereco);
+    this.router.route('/usuarios').post(UsuarioController.store);
   }
 }
 

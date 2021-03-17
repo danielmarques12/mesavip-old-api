@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import { Op } from 'sequelize';
-import Horario from '../models/Horario';
-import Usuario from '../models/Usuario';
+import Horario from '../../models/Restaurante/Horario';
+import Usuario from '../../models/Usuario';
 
 class HorarioController {
   async store(request, response) {
@@ -43,12 +43,7 @@ class HorarioController {
       attributes: ['id', 'horario'],
     });
 
-    const restaurante = await Usuario.findOne({
-      attributes: ['nome'],
-      where: { id: request.params.id },
-    });
-
-    return response.json({ horarios, restaurante });
+    return response.json(horarios);
   }
 }
 

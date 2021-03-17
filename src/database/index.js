@@ -2,14 +2,30 @@ import Sequelize from 'sequelize';
 
 import Usuario from '../app/models/Usuario';
 import Agendamento from '../app/models/Agendamento';
-import Horario from '../app/models/Horario';
-import Mesa from '../app/models/Mesa';
+import Horario from '../app/models/Restaurante/Horario';
+import Mesa from '../app/models/Restaurante/Mesa';
 import File from '../app/models/File';
 import Endereco from '../app/models/Endereco';
 
+import Restaurante from '../app/models/Restaurante/Restaurante';
+import Culinaria from '../app/models/Restaurante/Culinaria';
+import Comentario from '../app/models/Restaurante/Comentario';
+import Nota from '../app/models/Restaurante/Nota';
+
 import databaseConfig from '../config/database';
 
-const models = [Usuario, Agendamento, Horario, Mesa, File, Endereco];
+const models = [
+  Usuario,
+  Agendamento,
+  Horario,
+  Mesa,
+  File,
+  Endereco,
+  Restaurante,
+  Culinaria,
+  Comentario,
+  Nota,
+];
 
 class Database {
   constructor() {

@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import authMiddleware from '../app/middlewares/auth';
 
-import MesaController from '../app/controllers/MesaController';
+import MesaController from '../app/controllers/Restaurante/MesaController';
 
 class MesaRouter {
   constructor() {
@@ -11,11 +11,10 @@ class MesaRouter {
   }
 
   setRoutes() {
-    // this.router.route('/mesas').get(authMiddleware, MesaController.index);
-
     this.router
       .route('/mesas/criar')
       .post(authMiddleware, MesaController.store);
+
     this.router.route('/mesas').post(MesaController.MesasDisponiveis);
   }
 }
