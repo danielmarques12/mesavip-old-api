@@ -5,7 +5,7 @@ class AvalicaoController {
     const restaurante_id = request.params.id;
 
     const avaliacoes = await db.connection.query(
-      `SELECT coment.id, coment.comentario,
+      `SELECT coment.id, coment.comentario, coment."createdAt" AS data,
         notas.nota, 
         cliente.nome AS cliente
         FROM comentarios AS coment
@@ -18,9 +18,7 @@ class AvalicaoController {
       }
     );
 
-    return response.json({
-      avaliacoes,
-    });
+    return response.json(avaliacoes);
   }
 }
 

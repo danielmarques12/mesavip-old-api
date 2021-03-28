@@ -3,6 +3,7 @@ import { Router } from 'express';
 import RestauranteController from '../app/controllers/Restaurante/RestauranteController';
 import AvaliacaoController from '../app/controllers/Restaurante/AvaliacaoController';
 import HorarioController from '../app/controllers/Restaurante/HorarioController';
+import ImagemController from '../app/controllers/Restaurante/ImagemController';
 
 class RestauranteRouter {
   constructor() {
@@ -26,6 +27,14 @@ class RestauranteRouter {
     this.router
       .route('/restaurantes/avaliacoes/:id')
       .get(AvaliacaoController.index);
+
+    this.router
+      .route('/restaurantes/imagens/:id')
+      .get(ImagemController.getImagensGaleria);
+
+    this.router
+      .route('/restaurantes/banner/:id')
+      .get(ImagemController.getBanner);
   }
 }
 

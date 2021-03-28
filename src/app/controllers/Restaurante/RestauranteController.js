@@ -1,15 +1,24 @@
-import Usuario from '../../models/Usuario';
-
 import db from '../../../database';
 
 class RestauranteController {
   async listarRestaurantes(request, response) {
-    const restaurantes = await Usuario.findAll({
-      where: {
-        cpf: null,
-      },
-      attributes: ['id', 'nome'],
-    });
+    const restaurantes = await db.connection.query(
+      `SELECT
+      u.id, u.nome,
+      c.nome as culinaria,
+      e.bairro,
+      f.path
+      FROM usuarios u
+      INNER JOIN restaurantes r on u.id = r.restaurante_id
+      INNER JOIN culinarias c on c.id = r.culinaria_id
+      INNER JOIN enderecos e on u.id = e.usuario_id
+      INNER JOIN files f on u.id = f.usuario_id
+      WHERE f.type = 'banner-pequeno';`,
+      {
+        type: db.connection.QueryTypes.SELECT,
+      }
+    );
+
     return response.json(restaurantes);
   }
 
