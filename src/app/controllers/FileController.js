@@ -1,14 +1,16 @@
+import cloudinary from 'cloudinary';
 import File from '../models/File';
+import cloudinaryConfig from '../../config/cloudinary';
 
 class FileController {
   async store(request, response) {
-    const { originalname: name, filename: path } = request.file;
+    const { tempFilePath } = request.files.file;
+    cloudinary.config(cloudinaryConfig);
+    const { secure_url } = await cloudinary.v2.uploader.upload(tempFilePath);
 
-    // Upload sendo feito mesmo sem o id do usuário(FK) não sendo persistido
+    // const file = await File.create()
 
-    const file = await File.create({ name, path, usuario_id: request.userId });
-
-    return response.json(file);
+    return response.json(secure_url);
   }
 }
 

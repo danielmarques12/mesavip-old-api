@@ -7,6 +7,7 @@ import path from 'path';
 import compression from 'compression';
 import 'express-async-errors';
 import * as sentry from '@sentry/node';
+import fileupload from 'express-fileupload';
 import sentryConfig from './config/sentry';
 
 import routes from './routes';
@@ -31,13 +32,10 @@ class App {
 
   middlewares() {
     this.server.use(express.json());
-    this.server.use(
-      '/files',
-      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
-    );
     this.server.use(cors());
     this.server.use(compression());
     this.server.use(helmet());
+    this.server.use(fileupload({ useTempFiles: true }));
   }
 
   exceptionHandler() {
