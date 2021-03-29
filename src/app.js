@@ -3,7 +3,6 @@ import express from 'express';
 import Youch from 'youch';
 import cors from 'cors';
 import helmet from 'helmet';
-import path from 'path';
 import compression from 'compression';
 import 'express-async-errors';
 import * as sentry from '@sentry/node';

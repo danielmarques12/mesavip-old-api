@@ -6,8 +6,8 @@ class File extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
-        name: Sequelize.STRING,
         path: Sequelize.STRING,
+        type: Sequelize.STRING,
       },
       { sequelize, tableName: 'files' }
     );
