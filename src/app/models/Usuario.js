@@ -9,6 +9,7 @@ class Usuario extends Sequelize.Model {
         email: Sequelize.STRING,
         cpf: Sequelize.STRING,
         cnpj: Sequelize.STRING,
+        type: Sequelize.STRING,
         password_hash: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
       },

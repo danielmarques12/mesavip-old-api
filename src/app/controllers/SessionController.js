@@ -16,15 +16,16 @@ class SessionController {
       return response.status(401).json({ error: 'Senha ou email incorretos' });
     }
 
-    const { id, name } = usuario;
+    const { id, name, type } = usuario;
 
     return response.json({
       usuario: {
         id,
         name,
         email,
+        type,
       },
-      token: jwt.sign({ id }, authConfig.secret, {
+      token: jwt.sign({ id, type }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,
       }),
     });
