@@ -5,6 +5,8 @@ import db from '../../database';
 import File from '../models/File';
 import cloudinaryConfig from '../../config/cloudinary';
 
+require('dotenv/config');
+
 class FileController {
   async store(request, response) {
     const { tempFilePath } = request.files.file;
@@ -19,7 +21,10 @@ class FileController {
 
     cloudinary.config(cloudinaryConfig);
     const { secure_url } = await cloudinary.v2.uploader.upload(tempFilePath, {
-      folder: 'Mesavip/Uploads',
+      folder:
+        process.env.NODE_ENV === 'development'
+          ? 'Mesavip/Uploads'
+          : 'Mesavip/HerokuUploads',
       transformation,
     });
 
