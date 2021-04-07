@@ -8,7 +8,7 @@ import cloudinaryConfig from '../../config/cloudinary';
 class FileController {
   async store(request, response) {
     const { tempFilePath } = request.files.file;
-    const { type } = request.body;
+    const { type, transformation } = request.body;
 
     // Clean tmp folder
     fs.rm(
@@ -20,6 +20,7 @@ class FileController {
     cloudinary.config(cloudinaryConfig);
     const { secure_url } = await cloudinary.v2.uploader.upload(tempFilePath, {
       folder: 'Mesavip/Uploads',
+      transformation,
     });
 
     const file = await File.create({
@@ -38,7 +39,7 @@ class FileController {
       `SELECT f.id, f.path
       FROM files f
       INNER JOIN restaurantes r on f.usuario_id = r.restaurante_id
-      WHERE restaurante_id = 6
+      WHERE restaurante_id = :restaurante_id
       AND f.type = :type;`,
       {
         replacements: { restaurante_id, type },

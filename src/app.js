@@ -15,12 +15,11 @@ import './database';
 class App {
   constructor() {
     this.server = express();
-
-    if (process.env.NODE_ENV === 'production') sentry.init(sentryConfig);
-
     this.middlewares();
     this.routes();
     this.exceptionHandler();
+
+    if (process.env.NODE_ENV === 'production') sentry.init(sentryConfig);
   }
 
   routes() {

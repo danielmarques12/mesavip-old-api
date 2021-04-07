@@ -1,28 +1,7 @@
 import db from '../../../database';
 
 class RestauranteController {
-  async listarRestaurantes(request, response) {
-    const restaurantes = await db.connection.query(
-      `SELECT
-      u.id, u.nome,
-      c.nome as culinaria,
-      e.bairro,
-      f.path
-      FROM usuarios u
-      INNER JOIN restaurantes r on u.id = r.restaurante_id
-      INNER JOIN culinarias c on c.id = r.culinaria_id
-      INNER JOIN enderecos e on u.id = e.usuario_id
-      INNER JOIN files f on u.id = f.usuario_id
-      WHERE f.type = 'banner-pequeno';`,
-      {
-        type: db.connection.QueryTypes.SELECT,
-      }
-    );
-
-    return response.json(restaurantes);
-  }
-
-  async restauranteInfo(request, response) {
+  async show(request, response) {
     const restaurante_id = request.params.id;
 
     const restaurante = await db.connection.query(
@@ -68,6 +47,27 @@ class RestauranteController {
       restaurante,
       avaliacao: { media: media[0].media, quantidade: quantidade[0].count },
     });
+  }
+
+  async index(request, response) {
+    const restaurantes = await db.connection.query(
+      `SELECT
+      u.id, u.nome,
+      c.nome as culinaria,
+      e.bairro,
+      f.path
+      FROM usuarios u
+      INNER JOIN restaurantes r on u.id = r.restaurante_id
+      INNER JOIN culinarias c on c.id = r.culinaria_id
+      INNER JOIN enderecos e on u.id = e.usuario_id
+      INNER JOIN files f on u.id = f.usuario_id
+      WHERE f.type = 'lista';`,
+      {
+        type: db.connection.QueryTypes.SELECT,
+      }
+    );
+
+    return response.json(restaurantes);
   }
 
   // Criar um Controller para culinária???
