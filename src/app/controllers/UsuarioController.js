@@ -22,6 +22,8 @@ class UsuarioController {
       ? request.body.cpf
       : request.body.cnpj;
 
+    const type = request.body.cpf ? 'CLI' : 'RES';
+
     const usuario_existe = await Usuario.findOne({
       where: {
         [Op.or]: [
@@ -40,7 +42,7 @@ class UsuarioController {
       return response.status(400).json({ error: 'Usuario já cadastrado' });
     }
 
-    const { nome } = await Usuario.create(request.body);
+    const { nome } = await Usuario.create({ ...request.body, type });
 
     return response.json({ nome, email });
   }
