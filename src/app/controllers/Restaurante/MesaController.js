@@ -30,7 +30,7 @@ class MesaController {
 
     await Mesa.create({ capacidade, restaurante_id });
 
-    return response.json({ capacidade });
+    return response.json(capacidade);
   }
 
   async MesasDisponiveis(request, response) {

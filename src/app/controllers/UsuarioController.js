@@ -46,6 +46,60 @@ class UsuarioController {
 
     return response.json({ nome, email });
   }
+
+  async update(request, response) {
+    const { email, oldPassword } = request.body;
+
+    const schema = yup.object().shape({
+      name: yup.string(),
+      email: yup.string().email(),
+      oldPassword: yup.string().min(6),
+      password: yup
+        .string()
+        .min(6)
+        .when('oldPassword', (oldPassword, field) =>
+          oldPassword ? field.required() : field
+        ),
+      confirmPassword: yup
+        .string()
+        .when('password', (password, field) =>
+          password ? field.required().oneOf([yup.ref('password')]) : field
+        ),
+    });
+    if (!(await schema.isValid(request.body))) {
+      return response.status(400).json({ error: 'Validation failed' });
+    }
+
+    const user = await Usuario.findByPk(request.userId);
+
+    if (email !== user.email) {
+      const userExists = await Usuario.findOne({ where: { email } });
+
+      if (userExists) {
+        return response.status(401).json({ error: 'User already exists' });
+      }
+    }
+
+    if (oldPassword && !(await user.checkPassword(oldPassword))) {
+      return response.status(401).json({ error: 'Password does not match' });
+    }
+
+    const { id, name, provider } = await user.update(request.body);
+
+    return response.json('Dados atualizados com sucesso');
+  }
+
+  async delete(request, response) {
+    const user = await Usuario.findOne({ where: { id: request.params.id } });
+
+    if (!user) {
+      return response.status(400).json({ error: 'User not found' });
+    }
+
+    user.destroy();
+
+    return response.json('User deleted successfully');
+  }
 }
 
 export default new UsuarioController();
