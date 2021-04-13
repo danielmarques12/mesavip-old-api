@@ -12,16 +12,16 @@ class AgendamentoRouter {
 
   setRoutes() {
     this.router
-      .route('/agendamentos/:id')
-      .delete(authMiddleware, AgendamentoController.delete);
-
-    this.router
-      .route('/agendamentos/:id')
+      .route('/agendamentos/:restaurante_id')
       .post(authMiddleware, AgendamentoController.store);
 
     this.router
       .route('/agendamentos')
       .get(authMiddleware, AgendamentoController.index);
+
+    this.router
+      .route('/agendamentos/:id')
+      .delete(authMiddleware, AgendamentoController.delete);
   }
 }
 

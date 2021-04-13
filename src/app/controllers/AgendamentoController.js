@@ -1,9 +1,53 @@
-import {} from 'date-fns';
+// import {} from 'date-fns';
 import * as yup from 'yup';
 import Agendamento from '../models/Agendamento';
-import Usuario from '../models/Usuario';
+import db from '../../database';
 
 class AgendamentoController {
+  async store(request, response) {
+    const schema = yup.object().shape({
+      horario_id: yup.string().required(),
+    });
+
+    if (!(await schema.isValid(request.body))) {
+      return response.status(400).json({ error: 'Validação falhou' });
+    }
+
+    const { horario_id } = request.body;
+    const { restaurante_id } = request.params;
+
+    const mesa = await db.connection.query(
+      `SELECT m.id, m.capacidade
+      FROM mesas m
+      WHERE NOT EXISTS
+                (SELECT
+                  FROM agendamentos a
+                  WHERE a.mesa_id = m.id
+                  AND horario_id = :horario_id) 
+      AND m.restaurante_id = :restaurante_id
+      limit 1;`,
+      {
+        replacements: { horario_id, restaurante_id },
+        type: db.connection.QueryTypes.SELECT,
+      }
+    );
+
+    if (mesa[0] === undefined) {
+      return response.status(401).json({ error: 'Horário indisponível' });
+    }
+
+    const { id } = mesa[0];
+    const cliente_id = request.userId;
+
+    const scheduling = await Agendamento.create({
+      horario_id,
+      cliente_id,
+      mesa_id: id,
+    });
+
+    return response.json(scheduling);
+  }
+
   async index(request, response) {
     const agendamentos = await Agendamento.findAll({
       where: { cliente_id: request.userId },
@@ -15,48 +59,6 @@ class AgendamentoController {
     }
 
     return response.json(agendamentos);
-  }
-
-  async store(request, response) {
-    const restaurante = await Usuario.findOne({
-      where: { id: request.params.id, cpf: null },
-    });
-
-    if (!restaurante) {
-      return response.status(403).json({ error: 'Restaurante não existe' });
-    }
-
-    const schema = yup.object().shape({
-      horario_id: yup.string().required(),
-      mesa_id: yup.number().required(),
-    });
-
-    if (!(await schema.isValid(request.body))) {
-      return response.status(400).json({ error: 'Validação falhou' });
-    }
-
-    const agendamento = {
-      mesa_id: request.body.mesa_id,
-      horario_id: request.body.horario_id,
-      cliente_id: request.userId,
-    };
-
-    const agendamento_indisponivel = await Agendamento.findOne({
-      where: {
-        mesa_id: agendamento.mesa_id,
-        horario_id: agendamento.horario_id,
-      },
-    });
-
-    if (agendamento_indisponivel) {
-      return response
-        .status(401)
-        .json({ error: 'Mesa já agendada para este horário' });
-    }
-
-    await Agendamento.create(agendamento);
-
-    return response.json(agendamento);
   }
 
   async delete(request, response) {

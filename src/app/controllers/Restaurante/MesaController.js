@@ -33,22 +33,23 @@ class MesaController {
     return response.json(capacidade);
   }
 
-  async MesasDisponiveis(request, response) {
-    const mesas_disponiveis = await db.connection.query(
-      `SELECT m.id, m.capacidade
-        FROM mesas m
-        WHERE NOT EXISTS (
-        SELECT
-        FROM agendamentos a
-        WHERE a.mesa_id = m.id AND horario_id = :horario_id
-      );`,
+  async index(request, response) {
+    const availableTables = await db.connection.query(
+      `SELECT DISTINCT h.id, h.restaurante_id, h.horario
+      FROM horarios h
+      INNER JOIN mesas m on h.restaurante_id = m.restaurante_id
+      WHERE NOT EXISTS
+                      (SELECT FROM agendamentos a
+                      WHERE a.mesa_id = m.id AND a.horario_id = h.id)
+      AND h.restaurante_id = :restaurante_id
+      ORDER BY h.horario;`,
       {
-        replacements: { horario_id: request.body.horario_id },
+        replacements: { restaurante_id: request.params.restaurante_id },
         type: db.connection.QueryTypes.SELECT,
       }
     );
 
-    return response.json(mesas_disponiveis);
+    return response.json(availableTables);
   }
 }
 

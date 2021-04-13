@@ -15,7 +15,7 @@ class MesaRouter {
       .route('/mesas/criar')
       .post(authMiddleware, MesaController.store);
 
-    this.router.route('/mesas').post(MesaController.MesasDisponiveis);
+    this.router.route('/mesas/:restaurante_id').get(MesaController.index);
   }
 }
 
