@@ -11,6 +11,7 @@ class FileRouter {
   setRoutes() {
     this.router.route('/files').post(authMiddleware, FileController.store);
     this.router.route('/getfiles').post(authMiddleware, FileController.index);
+    this.router.route('/files').delete(authMiddleware, FileController.destroy);
   }
 }
 

@@ -1,6 +1,7 @@
 import cloudinary from 'cloudinary';
 import fs from 'fs';
 import path from 'path';
+import { Op } from 'sequelize';
 import db from '../../database';
 import File from '../models/File';
 import cloudinaryConfig from '../../config/cloudinary';
@@ -20,16 +21,20 @@ class FileController {
     );
 
     cloudinary.config(cloudinaryConfig);
-    const { secure_url } = await cloudinary.v2.uploader.upload(tempFilePath, {
-      folder:
-        process.env.NODE_ENV === 'development'
-          ? 'Mesavip/Uploads'
-          : 'Mesavip/HerokuUploads',
-      transformation,
-    });
+    const { secure_url, public_id } = await cloudinary.v2.uploader.upload(
+      tempFilePath,
+      {
+        folder:
+          process.env.NODE_ENV === 'development'
+            ? 'Mesavip/Uploads'
+            : 'Mesavip/HerokuUploads',
+        transformation,
+      }
+    );
 
     const file = await File.create({
       path: secure_url,
+      public_id,
       usuario_id: request.userId,
       type,
     });
@@ -52,6 +57,32 @@ class FileController {
       }
     );
     return response.json(imagens);
+  }
+
+  async destroy(request, response) {
+    const restaurante_id = request.userId;
+    const { type } = request.body;
+
+    const files = await File.findAll({
+      where: {
+        usuario_id: restaurante_id,
+        type: type === 'galeria' ? type : { [Op.not]: 'galeria' },
+      },
+      attributes: ['public_id'],
+    });
+
+    if (!files) {
+      return response.status(401).json({ error: 'Files not found' });
+    }
+
+    const filesToBeDeleted = files.map((file) => file.public_id);
+
+    cloudinary.config(cloudinaryConfig);
+    await cloudinary.v2.api.delete_resources(filesToBeDeleted);
+
+    await File.destroy({ where: { public_id: filesToBeDeleted } });
+
+    return response.json(filesToBeDeleted);
   }
 }
 
