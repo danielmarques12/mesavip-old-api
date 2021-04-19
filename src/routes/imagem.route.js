@@ -1,7 +1,6 @@
 import { Router } from 'express';
 
 import ImagemController from '../app/controllers/Restaurante/ImagemController';
-import authMiddleware from '../app/middlewares/auth';
 
 class RestauranteRouter {
   constructor() {
@@ -10,7 +9,7 @@ class RestauranteRouter {
   }
 
   setRoutes() {
-    this.router.route('/imagens').post(authMiddleware, ImagemController.show);
+    this.router.route('/imagens/:restaurante_id').post(ImagemController.show);
   }
 }
 

@@ -49,19 +49,27 @@ class AgendamentoController {
   }
 
   async index(request, response) {
-    const agendamentos = await Agendamento.findAll({
-      where: { cliente_id: request.userId },
-      attributes: ['id', 'horario_id', 'mesa_id'],
-    });
+    const scheduling = await db.connection.query(
+      `SELECT
+      a.id, h.horario, u.nome as restaurante
+      FROM agendamentos a
+      INNER JOIN horarios h on a.horario_id = h.id
+      INNER JOIN usuarios u on h.restaurante_id = u.id
+      WHERE a.cliente_id = :cliente_id;`,
+      {
+        replacements: { cliente_id: request.userId },
+        type: db.connection.QueryTypes.SELECT,
+      }
+    );
 
-    if (!agendamentos) {
+    if (!scheduling) {
       return response.status(403).json({ error: '403 Forbidden' });
     }
 
-    return response.json(agendamentos);
+    return response.json(scheduling);
   }
 
-  async delete(request, response) {
+  async destroy(request, response) {
     const agendamento = await Agendamento.findOne({
       where: { id: request.params.id },
     });

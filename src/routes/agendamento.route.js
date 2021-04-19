@@ -21,7 +21,7 @@ class AgendamentoRouter {
 
     this.router
       .route('/agendamentos/:id')
-      .delete(authMiddleware, AgendamentoController.delete);
+      .delete(authMiddleware, AgendamentoController.destroy);
   }
 }
 

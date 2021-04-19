@@ -2,7 +2,8 @@ import db from '../../../database';
 
 class ImagemController {
   async show(request, response) {
-    const { restaurante_id, type } = request.body;
+    const { type } = request.body;
+    const { restaurante_id } = request.params;
 
     const imagens = await db.connection.query(
       `SELECT
