@@ -17,7 +17,7 @@ class AgendamentoController {
     const { restaurante_id } = request.params;
 
     const mesa = await db.connection.query(
-      `SELECT m.id, m.capacidade
+      `SELECT m.id
       FROM mesas m
       WHERE NOT EXISTS
                 (SELECT

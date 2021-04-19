@@ -3,9 +3,7 @@ import Sequelize from 'sequelize';
 class Mesa extends Sequelize.Model {
   static init(sequelize) {
     super.init(
-      {
-        capacidade: Sequelize.INTEGER,
-      },
+      {},
       {
         sequelize,
         tableName: 'mesas',
