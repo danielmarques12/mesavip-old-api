@@ -1,26 +1,17 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('files', {
-      file_id: {
+    queryInterface.createTable('hours', {
+      hour_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
+        allowNull: false,
         autoIncrement: true,
-        allowNull: false,
       },
-      public_id: {
+      hour: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      path: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      type: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      user_id: {
+      restaurant_id: {
         references: { model: 'users', key: 'user_id' },
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -37,5 +28,5 @@ module.exports = {
       },
     }),
 
-  down: (queryInterface) => queryInterface.dropTable('files'),
+  down: (queryInterface) => queryInterface.dropTable('hours'),
 };

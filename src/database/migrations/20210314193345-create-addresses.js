@@ -1,24 +1,39 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('files', {
-      file_id: {
+    queryInterface.createTable('addresses', {
+      adress_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      public_id: {
+      bairro: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      path: {
+      cidade: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
-      type: {
+      estado: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      cep: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      logradouro: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      numero: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      complemento: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       user_id: {
         references: { model: 'users', key: 'user_id' },
@@ -37,5 +52,5 @@ module.exports = {
       },
     }),
 
-  down: (queryInterface) => queryInterface.dropTable('files'),
+  down: (queryInterface) => queryInterface.dropTable('addresses'),
 };

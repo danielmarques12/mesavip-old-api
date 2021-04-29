@@ -1,22 +1,22 @@
 import jwt from 'jsonwebtoken';
 import authConfig from '../../config/auth';
-import Usuario from '../models/Usuario';
+import Usuario from '../models/User';
 
 class SessionController {
   async store(request, response) {
     const { email, password } = request.body;
 
-    const usuario = await Usuario.findOne({ where: { email } });
+    const user = await Usuario.findOne({ where: { email } });
 
-    if (!usuario) {
-      return response.status(401).json({ error: 'Usuario não encontrado' });
+    if (!user) {
+      return response.status(401).json({ error: 'User not found' });
     }
 
-    if (!(await usuario.checkPassword(password))) {
-      return response.status(401).json({ error: 'Senha ou email incorretos' });
+    if (!(await user.checkPassword(password))) {
+      return response.status(401).json({ error: 'Wrong password or email' });
     }
 
-    const { id, type } = usuario;
+    const { id, type } = user;
 
     return response.json({
       userType: type,

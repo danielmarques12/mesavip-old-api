@@ -1,26 +1,24 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable('files', {
-      file_id: {
+    queryInterface.createTable('rates', {
+      rate_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      public_id: {
-        type: Sequelize.STRING,
+      rate: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      path: {
-        type: Sequelize.STRING,
+      restaurant_id: {
+        references: { model: 'users', key: 'user_id' },
+        type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true,
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
       },
-      type: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      user_id: {
+      client_id: {
         references: { model: 'users', key: 'user_id' },
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -37,5 +35,5 @@ module.exports = {
       },
     }),
 
-  down: (queryInterface) => queryInterface.dropTable('files'),
+  down: (queryInterface) => queryInterface.dropTable('rates'),
 };
