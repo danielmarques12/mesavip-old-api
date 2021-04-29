@@ -1,5 +1,5 @@
 import { Router } from 'express';
-// import authMiddleware from '../app/middlewares/auth';
+import authMiddleware from '../app/middlewares/auth';
 import AdressController from '../app/controllers/AdressController';
 
 class AdressRouter {
@@ -9,7 +9,10 @@ class AdressRouter {
   }
 
   setRoutes() {
-    this.router.route('/addresses').post(AdressController.store);
+    this.router
+      .route('/addresses')
+      .post(authMiddleware, AdressController.store);
+
     this.router.route('/addresses/:id').get(AdressController.show);
   }
 }

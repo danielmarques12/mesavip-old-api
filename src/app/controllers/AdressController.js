@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import Endereco from '../models/Adress';
+import Adress from '../models/Adress';
 
 class AdressController {
   async store(request, response) {
@@ -16,7 +16,7 @@ class AdressController {
     });
 
     if (!(await schema.isValid(request.body))) {
-      return response.status(400).json({ error: 'Validação falhou' });
+      return response.status(400).json({ error: 'Validation failed' });
     }
 
     const adress = {
@@ -27,17 +27,17 @@ class AdressController {
       logradouro: request.body.logradouro,
       numero: request.body.numero,
       complemento: request.body.complemento,
-      usuario_id: request.userId,
+      user_id: request.userId,
     };
 
-    await Endereco.create(adress);
+    await Adress.create(adress);
 
     return response.json(adress);
   }
 
   async show(request, response) {
-    const adress = await Endereco.findOne({
-      where: { usuario_id: request.params.id },
+    const adress = await Adress.findOne({
+      where: { user_id: request.params.id },
       attributes: [
         'bairro',
         'cidade',

@@ -1,13 +1,13 @@
-import Mesa from '../../models/Restaurant/Table';
-import Usuario from '../../models/User';
+import Table from '../../models/Restaurant/Table';
+import User from '../../models/User';
 
 import db from '../../../database';
 
 class TableController {
   async store(request, response) {
-    const restaurant = await Usuario.findOne({
+    const restaurant = await User.findOne({
       where: {
-        id: request.userId,
+        user_id: request.userId,
         cpf: null,
       },
     });
@@ -18,21 +18,21 @@ class TableController {
 
     const restaurant_id = request.userId;
 
-    await Mesa.create({ restaurant_id });
+    await Table.create({ restaurant_id });
 
-    return response.json('Mesa criada com sucesso');
+    return response.json('Table added successfully');
   }
 
   async index(request, response) {
     const availableTables = await db.connection.query(
-      `SELECT DISTINCT h.id, h.restaurante_id, h.horario
-      FROM horarios h
-      INNER JOIN mesas m on h.restaurante_id = m.restaurante_id
+      `SELECT DISTINCT h.hour_id, h.restaurant_id, h.hour
+      FROM hours h
+      INNER JOIN tables t on h.restaurant_id = t.restaurant_id
       WHERE NOT EXISTS
-                      (SELECT FROM agendamentos a
-                      WHERE a.mesa_id = m.id AND a.horario_id = h.id)
-      AND h.restaurante_id = :restaurante_id
-      ORDER BY h.horario;`,
+                      (SELECT FROM reservations r
+                      WHERE r.table_id = t.table_id AND r.hour_id = h.hour_id)
+      AND h.restaurant_id = :restaurant_id
+      ORDER BY h.hour;`,
       {
         replacements: { restaurant_id: request.params.restaurant_id },
         type: db.connection.QueryTypes.SELECT,

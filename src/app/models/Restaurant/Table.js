@@ -3,7 +3,9 @@ import Sequelize from 'sequelize';
 class Table extends Sequelize.Model {
   static init(sequelize) {
     super.init(
-      {},
+      {
+        table_id: { primaryKey: true, type: Sequelize.INTEGER },
+      },
       {
         sequelize,
         tableName: 'tables',

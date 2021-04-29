@@ -1,6 +1,6 @@
 // import {} from 'date-fns';
 import * as yup from 'yup';
-import Agendamento from '../models/Reservation';
+import Reservation from '../models/Reservation';
 import db from '../../database';
 
 class ReservationController {
@@ -17,14 +17,14 @@ class ReservationController {
     const { restaurant_id } = request.params;
 
     const table = await db.connection.query(
-      `SELECT m.id
-      FROM mesas m
+      `SELECT t.table_id
+      FROM tables t
       WHERE NOT EXISTS
                 (SELECT
-                  FROM agendamentos a
-                  WHERE a.mesa_id = m.id
-                  AND horario_id = :hour_id) 
-      AND m.restaurante_id = :restaurant_id
+                  FROM reservations r
+                  WHERE r.table_id = t.table_id
+                  AND r.hour_id = :hour_id) 
+      AND t.restaurant_id = :restaurant_id
       limit 1;`,
       {
         replacements: { hour_id, restaurant_id },
@@ -33,16 +33,16 @@ class ReservationController {
     );
 
     if (table[0] === undefined) {
-      return response.status(401).json({ error: 'Not available' });
+      return response.status(401).json({ error: 'Reservation not available' });
     }
 
-    const { id } = table[0];
+    const { table_id } = table[0];
     const client_id = request.userId;
 
-    const reservation = await Agendamento.create({
+    const reservation = await Reservation.create({
       hour_id,
       client_id,
-      table_id: id,
+      table_id,
     });
 
     return response.json(reservation);
@@ -51,11 +51,11 @@ class ReservationController {
   async index(request, response) {
     const reservation = await db.connection.query(
       `SELECT
-      a.id, h.horario, u.nome as restaurante
-      FROM agendamentos a
-      INNER JOIN horarios h on a.horario_id = h.id
-      INNER JOIN usuarios u on h.restaurante_id = u.id
-      WHERE a.cliente_id = :client_id;`,
+      r.id, h.hour, u.name as restaurant
+      FROM reservations r
+      INNER JOIN hours h on r.hour_id = h.hour_id
+      INNER JOIN users u on h.restaurant_id = u.user_id
+      WHERE r.client_id = :client_id;`,
       {
         replacements: { client_id: request.userId },
         type: db.connection.QueryTypes.SELECT,
@@ -70,17 +70,17 @@ class ReservationController {
   }
 
   async destroy(request, response) {
-    const reservation = await Agendamento.findOne({
-      where: { id: request.params.id },
+    const reservation = await Reservation.findOne({
+      where: { reservation_id: request.params.id },
     });
 
     if (!reservation) {
       return response.status(401).json({ error: 'Reservation does not exist' });
     }
 
-    await Agendamento.destroy({
+    await Reservation.destroy({
       where: {
-        id: request.params.id,
+        reservation_id: request.params.id,
       },
     });
 

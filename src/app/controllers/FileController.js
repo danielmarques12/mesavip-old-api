@@ -35,7 +35,7 @@ class FileController {
     const file = await File.create({
       path: secure_url,
       public_id,
-      usuario_id: request.userId,
+      user_id: request.userId,
       type,
     });
 
@@ -43,16 +43,16 @@ class FileController {
   }
 
   async index(request, response) {
-    const { restaurante_id, type } = request.body;
+    const { restaurant_id, type } = request.params;
 
     const imagens = await db.connection.query(
-      `SELECT f.id, f.path
+      `SELECT f.file_id, f.path
       FROM files f
-      INNER JOIN restaurantes r on f.usuario_id = r.restaurante_id
-      WHERE restaurante_id = :restaurante_id
+      INNER JOIN restaurants r on f.user_id = r.restaurant_id
+      WHERE restaurant_id = :restaurant_id
       AND f.type = :type;`,
       {
-        replacements: { restaurante_id, type },
+        replacements: { restaurant_id, type },
         type: db.connection.QueryTypes.SELECT,
       }
     );
@@ -60,12 +60,12 @@ class FileController {
   }
 
   async destroy(request, response) {
-    const restaurante_id = request.userId;
+    const restaurant_id = request.userId;
     const { type } = request.body;
 
     const files = await File.findAll({
       where: {
-        usuario_id: restaurante_id,
+        user_id: restaurant_id,
         type: type === 'galeria' ? type : { [Op.not]: 'galeria' },
       },
       attributes: ['public_id'],

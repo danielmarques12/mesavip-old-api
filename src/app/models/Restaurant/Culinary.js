@@ -4,6 +4,7 @@ class Culinary extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
+        culinary_id: { primaryKey: true, type: Sequelize.INTEGER },
         name: Sequelize.STRING,
       },
       { sequelize, tableName: 'culinaries' }

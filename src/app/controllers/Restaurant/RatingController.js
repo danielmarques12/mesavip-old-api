@@ -6,14 +6,14 @@ class RatingController {
 
     const ratings = await db.connection.query(
       `SELECT
-      coment.id, coment.comentario, coment."createdAt" AS data,
-      notas.nota,
-      cliente.nome AS cliente
-      FROM comentarios AS coment
-      INNER JOIN usuarios AS cliente ON cliente.id = coment.cliente_id
-      INNER JOIN notas ON notas.cliente_id = cliente.id
-      WHERE coment.restaurante_id = :restaurant_id
-      AND notas.restaurante_id = :restaurant_id;`,
+      comment.id, comment.comment, comment."createdAt" AS data,
+      rates.rate,
+      client.name AS client
+      FROM comment
+      INNER JOIN users AS client ON client.user_id = comment.client_id
+      INNER JOIN rates ON rates.client_id = client.user_id
+      WHERE comment.restaurant_id = :restaurant_id
+      AND rates.restaurant_id = :restaurant_id;`,
       {
         replacements: { restaurant_id },
         type: db.connection.QueryTypes.SELECT,

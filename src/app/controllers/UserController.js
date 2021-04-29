@@ -1,12 +1,12 @@
 /* eslint-disable no-shadow */
 import * as yup from 'yup';
 import { Op } from 'sequelize';
-import Usuario from '../models/User';
+import User from '../models/User';
 
 class UserController {
   async store(request, response) {
     const schema = yup.object().shape({
-      nome: yup.string().required(),
+      name: yup.string().required(),
       email: yup.string().email().required(),
       cpf: yup.string(),
       cnpj: yup.string(),
@@ -14,38 +14,34 @@ class UserController {
     });
 
     if (!(await schema.isValid(request.body))) {
-      return response.status(400).json({ error: 'Validação falhou' });
+      return response.status(400).json({ error: 'Validation failed' });
     }
 
     const { email } = request.body;
-
-    const forma_de_cadastro = request.body.cpf
-      ? request.body.cpf
-      : request.body.cnpj;
-
+    const user_type = request.body.cpf ? request.body.cpf : request.body.cnpj;
     const type = request.body.cpf ? 'CLI' : 'RES';
 
-    const usuario_existe = await Usuario.findOne({
+    const userExists = await User.findOne({
       where: {
         [Op.or]: [
           { email },
           {
-            cpf: forma_de_cadastro,
+            cpf: user_type,
           },
           {
-            cnpj: forma_de_cadastro,
+            cnpj: user_type,
           },
         ],
       },
     });
 
-    if (usuario_existe) {
-      return response.status(400).json({ error: 'Usuario já cadastrado' });
+    if (userExists) {
+      return response.status(400).json({ error: 'User already registered' });
     }
 
-    const { nome } = await Usuario.create({ ...request.body, type });
+    const { name } = await User.create({ ...request.body, type });
 
-    return response.json({ nome, email });
+    return response.json({ name, email });
   }
 
   async update(request, response) {
@@ -71,10 +67,10 @@ class UserController {
       return response.status(400).json({ error: 'Validation failed' });
     }
 
-    const user = await Usuario.findByPk(request.userId);
+    const user = await User.findByPk(request.userId);
 
     if (email !== user.email) {
-      const userExists = await Usuario.findOne({ where: { email } });
+      const userExists = await User.findOne({ where: { email } });
 
       if (userExists) {
         return response.status(401).json({ error: 'User already exists' });
@@ -91,10 +87,10 @@ class UserController {
   }
 
   async delete(request, response) {
-    const user = await Usuario.findOne({ where: { id: request.params.id } });
+    const user = await User.findOne({ where: { user_id: request.params.id } });
 
     if (!user) {
-      return response.status(400).json({ error: 'User not found' });
+      return User.status(400).json({ error: 'User not found' });
     }
 
     user.destroy();

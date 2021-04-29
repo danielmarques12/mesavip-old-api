@@ -4,6 +4,7 @@ class Hour extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
+        hour_id: { primaryKey: true, type: Sequelize.INTEGER },
         hour: Sequelize.STRING,
       },
       { sequelize, tableName: 'hours' }
@@ -13,7 +14,7 @@ class Hour extends Sequelize.Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Usuario, {
+    this.belongsTo(models.User, {
       foreignKey: 'restaurant_id',
       as: 'restaurant',
     });

@@ -4,6 +4,7 @@ class Reservation extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
+        reservation_id: { primaryKey: true, type: Sequelize.INTEGER },
         hour_id: Sequelize.INTEGER,
         client_id: Sequelize.INTEGER,
         table_id: Sequelize.INTEGER,

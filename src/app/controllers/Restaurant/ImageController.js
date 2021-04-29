@@ -7,10 +7,10 @@ class ImageController {
 
     const images = await db.connection.query(
       `SELECT
-      f.id, f.path
-      FROM files as f
-      WHERE f.usuario_id = :restaurante_id
-      AND f.type = :type;`,
+      file_id, path
+      FROM files
+      WHERE user_id = :restaurant_id
+      AND type = :type;`,
       {
         replacements: { restaurant_id, type },
         type: db.connection.QueryTypes.SELECT,

@@ -1,12 +1,12 @@
 import * as yup from 'yup';
 import { Op } from 'sequelize';
-import Horario from '../../models/Restaurant/Hour';
-import Usuario from '../../models/User';
+import Hour from '../../models/Restaurant/Hour';
+import User from '../../models/User';
 
 class HourController {
   async store(request, response) {
-    const restaurant = await Usuario.findOne({
-      where: { [Op.and]: [{ id: request.userId }, { cpf: null }] },
+    const restaurant = await User.findOne({
+      where: { [Op.and]: [{ user_id: request.userId }, { cpf: null }] },
     });
 
     if (!restaurant) {
@@ -14,7 +14,7 @@ class HourController {
     }
 
     const schema = yup.object().shape({
-      horario: yup.string().required(),
+      hour: yup.string().required(),
     });
 
     if (!(await schema.isValid(request.body))) {
@@ -24,23 +24,23 @@ class HourController {
     const { hour } = request.body;
     const restaurant_id = request.userId;
 
-    const isHourAlreadyRegistered = await Horario.findOne({
+    const isHourAlreadyRegistered = await Hour.findOne({
       where: { hour, restaurant_id },
     });
 
     if (isHourAlreadyRegistered) {
-      return response.status(400).json({ error: 'Horário já cadastrado' });
+      return response.status(400).json({ error: 'Hour already registered' });
     }
 
-    await Horario.create({ hour, restaurant_id });
+    await Hour.create({ hour, restaurant_id });
 
     return response.json({ hour, restaurant_id });
   }
 
   async index(request, response) {
-    const hours = await Horario.findAll({
+    const hours = await Hour.findAll({
       where: { restaurant_id: request.params.id },
-      attributes: ['id', 'horario'],
+      attributes: ['hour_id', 'hour'],
     });
 
     return response.json(hours);

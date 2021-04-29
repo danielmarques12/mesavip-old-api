@@ -4,6 +4,7 @@ class Adress extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
+        adress_id: { primaryKey: true, type: Sequelize.INTEGER },
         bairro: Sequelize.STRING,
         cidade: Sequelize.STRING,
         estado: Sequelize.STRING,

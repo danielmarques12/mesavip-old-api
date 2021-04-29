@@ -4,6 +4,7 @@ class Comment extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
+        comment_id: { primaryKey: true, type: Sequelize.INTEGER },
         comment: Sequelize.STRING,
         restaurant_id: Sequelize.INTEGER,
         client_id: Sequelize.INTEGER,

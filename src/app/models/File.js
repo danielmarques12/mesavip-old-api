@@ -6,6 +6,7 @@ class File extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
+        file_id: { primaryKey: true, type: Sequelize.INTEGER },
         path: Sequelize.STRING,
         public_id: Sequelize.STRING,
         type: Sequelize.STRING,
@@ -17,9 +18,9 @@ class File extends Sequelize.Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Usuario, {
-      foreignKey: 'usuario_id',
-      as: 'usuario',
+    this.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'user',
     });
   }
 }
