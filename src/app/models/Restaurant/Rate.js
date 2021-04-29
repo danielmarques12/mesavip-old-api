@@ -4,7 +4,12 @@ class Rate extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
-        rate_id: { primaryKey: true, type: Sequelize.INTEGER },
+        rate_id: {
+          primaryKey: true,
+          type: Sequelize.INTEGER,
+          autoIncrement: true,
+          allowNull: false,
+        },
         rate: Sequelize.INTEGER,
         restaurant_id: Sequelize.INTEGER,
         client_id: Sequelize.INTEGER,

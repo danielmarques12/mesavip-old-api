@@ -4,7 +4,12 @@ class Table extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
-        table_id: { primaryKey: true, type: Sequelize.INTEGER },
+        table_id: {
+          primaryKey: true,
+          type: Sequelize.INTEGER,
+          autoIncrement: true,
+          allowNull: false,
+        },
       },
       {
         sequelize,

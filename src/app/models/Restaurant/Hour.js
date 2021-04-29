@@ -4,7 +4,12 @@ class Hour extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
-        hour_id: { primaryKey: true, type: Sequelize.INTEGER },
+        hour_id: {
+          primaryKey: true,
+          type: Sequelize.INTEGER,
+          autoIncrement: true,
+          allowNull: false,
+        },
         hour: Sequelize.STRING,
       },
       { sequelize, tableName: 'hours' }

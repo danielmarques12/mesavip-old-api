@@ -30,7 +30,7 @@ class RestaurantController {
   async index(request, response) {
     const restaurants = await db.connection.query(
       `SELECT
-      u.user_id, u.name,
+      u.user_id as id, u.name,
       c.name as culinary,
       a.bairro,
       f.path,

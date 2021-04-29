@@ -51,7 +51,7 @@ class ReservationController {
   async index(request, response) {
     const reservation = await db.connection.query(
       `SELECT
-      r.id, h.hour, u.name as restaurant
+      r.reservation_id as id, h.hour, u.name as restaurant
       FROM reservations r
       INNER JOIN hours h on r.hour_id = h.hour_id
       INNER JOIN users u on h.restaurant_id = u.user_id

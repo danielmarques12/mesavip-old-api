@@ -5,7 +5,12 @@ class User extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
-        user_id: { primaryKey: true, type: Sequelize.INTEGER },
+        user_id: {
+          primaryKey: true,
+          type: Sequelize.INTEGER,
+          autoIncrement: true,
+          allowNull: false,
+        },
         name: Sequelize.STRING,
         email: Sequelize.STRING,
         cpf: Sequelize.STRING,

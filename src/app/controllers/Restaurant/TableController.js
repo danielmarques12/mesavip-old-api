@@ -25,7 +25,7 @@ class TableController {
 
   async index(request, response) {
     const availableTables = await db.connection.query(
-      `SELECT DISTINCT h.hour_id, h.restaurant_id, h.hour
+      `SELECT DISTINCT h.hour_id as id, h.restaurant_id, h.hour
       FROM hours h
       INNER JOIN tables t on h.restaurant_id = t.restaurant_id
       WHERE NOT EXISTS

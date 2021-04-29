@@ -7,7 +7,7 @@ class ImageController {
 
     const images = await db.connection.query(
       `SELECT
-      file_id, path
+      file_id as id, path
       FROM files
       WHERE user_id = :restaurant_id
       AND type = :type;`,

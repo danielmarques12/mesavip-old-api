@@ -6,7 +6,12 @@ class File extends Sequelize.Model {
   static init(sequelize) {
     super.init(
       {
-        file_id: { primaryKey: true, type: Sequelize.INTEGER },
+        file_id: {
+          primaryKey: true,
+          type: Sequelize.INTEGER,
+          autoIncrement: true,
+          allowNull: false,
+        },
         path: Sequelize.STRING,
         public_id: Sequelize.STRING,
         type: Sequelize.STRING,
