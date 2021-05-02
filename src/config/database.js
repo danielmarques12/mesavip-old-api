@@ -21,4 +21,9 @@ module.exports = {
     undescored: true,
     underscoredAll: true,
   },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  }
 };
