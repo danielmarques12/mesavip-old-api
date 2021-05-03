@@ -45,7 +45,7 @@ class FileController {
   async index(request, response) {
     const { restaurant_id, type } = request.params;
 
-    const imagens = await db.connection.query(
+    const images = await db.connection.query(
       `SELECT f.file_id, f.path
       FROM files f
       INNER JOIN restaurants r on f.user_id = r.restaurant_id
@@ -56,7 +56,7 @@ class FileController {
         type: db.connection.QueryTypes.SELECT,
       }
     );
-    return response.json(imagens);
+    return response.json(images);
   }
 
   async destroy(request, response) {
