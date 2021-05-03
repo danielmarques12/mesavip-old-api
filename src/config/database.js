@@ -21,5 +21,5 @@ module.exports = {
     undescored: true,
     underscoredAll: true,
   },
-  "operatorsAliases": 0
+  operatorsAliases: 0,
 };
