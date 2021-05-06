@@ -7,7 +7,7 @@
  
 [Front-end in React Repo](https://github.com/danielmarques12/mesavip-web)
 
-[The Website](http://mesavip.gq)
+[The Website](https://mesavip-web.herokuapp.com/)
 ###### It may take a few seconds to load, due to the free hosting.
 
 ###### Personal project for studying and portfolio purposes.
